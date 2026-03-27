@@ -10,8 +10,8 @@ import { getUserModelConfig } from '@/lib/config-service'
 import {
   CHARACTER_IMAGE_BANANA_RATIO,
   addCharacterPromptSuffix,
-  getArtStylePrompt,
 } from '@/lib/constants'
+import { resolveStylePrompt } from '@/lib/styles/style-resolver'
 import { encodeImageUrls } from '@/lib/contracts/image-urls-contract'
 import { generateUniqueKey, getSignedUrl, uploadObject } from '@/lib/storage'
 import { initializeFonts, createLabelSVG } from '@/lib/fonts'
@@ -191,9 +191,7 @@ export async function handleReferenceToCharacterTask(job: Job<TaskJobData>) {
     }
   }
 
-  // 🔥 废弃 (Phase 3): 此处使用 getArtStylePrompt 直接获取。
-  // 实时风格 prompt 统一通过 resolveStylePrompt() 获取（Phase 2）。
-  const artStylePrompt = getArtStylePrompt(artStyle, job.data.locale)
+  const artStylePrompt = await resolveStylePrompt(artStyle, job.data.userId, job.data.locale) ?? ''
 
   const basePrompt = customDescription || buildPrompt({
     promptId: PROMPT_IDS.CHARACTER_REFERENCE_TO_SHEET,

@@ -1,6 +1,7 @@
 import { type Job } from 'bullmq'
 import { prisma } from '@/lib/prisma'
-import { addLocationPromptSuffix, getArtStylePrompt, isArtStyleValue, type ArtStyleValue } from '@/lib/constants'
+import { addLocationPromptSuffix, isArtStyleValue, type ArtStyleValue } from '@/lib/constants'
+import { resolveStylePrompt } from '@/lib/styles/style-resolver'
 import { normalizeImageGenerationCount } from '@/lib/image-generation/count'
 import { type TaskJobData } from '@/lib/task/types'
 import { reportTaskProgress } from '../shared'
@@ -64,7 +65,7 @@ export async function handleLocationImageTask(job: Job<TaskJobData>) {
   const requestedCount = resolveRequestedLocationCount(payload)
 
   const payloadArtStyle = resolvePayloadArtStyle(payload)
-  const artStyle = getArtStylePrompt(payloadArtStyle ?? models.artStyle, job.data.locale)
+  const artStyle = await resolveStylePrompt((payloadArtStyle ?? models.artStyle) ?? '', job.data.userId, job.data.locale) ?? ''
 
   // targetId may be locationId (group) or locationImageId (single)
   const maybeLocationImage = await db.locationImage.findUnique({

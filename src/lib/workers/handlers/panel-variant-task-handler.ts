@@ -1,6 +1,6 @@
 import { type Job } from 'bullmq'
 import { prisma } from '@/lib/prisma'
-import { getArtStylePrompt } from '@/lib/constants'
+import { resolveStylePrompt } from '@/lib/styles/style-resolver'
 import { logInfo as _ulogInfo } from '@/lib/logging/core'
 import { type TaskJobData } from '@/lib/task/types'
 import {
@@ -211,7 +211,7 @@ export async function handlePanelVariantTask(job: Job<TaskJobData>) {
   const normalizedRefs = await normalizeReferenceImagesForGeneration(refs)
 
   // 使用 agent_shot_variant_generate.txt 提示词模板
-  const artStyle = getArtStylePrompt(modelConfig.artStyle, job.data.locale)
+  const artStyle = await resolveStylePrompt(modelConfig.artStyle ?? '', job.data.userId, job.data.locale) ?? ''
   const charactersInfo = buildCharactersInfo(newPanel, projectData)
   const characterAssetsDesc = includeCharacterAssets
     ? buildCharacterAssetsDescription(newPanel, projectData)
