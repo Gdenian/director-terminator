@@ -14,6 +14,7 @@ import { ART_STYLES, VIDEO_RATIOS } from '@/lib/constants'
 import { Link, useRouter } from '@/i18n/navigation'
 import { apiFetch } from '@/lib/api-fetch'
 import { createHomeProjectLaunch } from '@/lib/home/create-project-launch'
+import { useUserStyles } from '@/hooks/useUserStyles'
 import {
   HOME_QUICK_START_MIN_ROWS,
   resolveTextareaTargetHeight,
@@ -52,6 +53,9 @@ export default function HomePage() {
   const [createLoading, setCreateLoading] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const textareaMinHeightRef = useRef<number | null>(null)
+
+  // 获取用户自定义风格
+  const { options: userStyleOptions } = useUserStyles()
 
   // textarea 自适应高度（rAF 分帧动画）
   const autoResizeTextarea = useCallback(() => {
@@ -266,6 +270,7 @@ export default function HomePage() {
                     value={artStyle}
                     onChange={setArtStyle}
                     options={styleOptions}
+                    userOptions={userStyleOptions}
                   />
                 </div>
               </div>

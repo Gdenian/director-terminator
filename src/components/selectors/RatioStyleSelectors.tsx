@@ -108,10 +108,12 @@ export function StyleSelector({
   value,
   onChange,
   options,
+  userOptions,
 }: {
   value: string
   onChange: (value: string) => void
   options: { value: string; label: string; recommended?: boolean }[]
+  userOptions?: { value: string; label: string }[]
 }) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -126,7 +128,11 @@ export function StyleSelector({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const selectedOption = options.find((o) => o.value === value) || options[0]
+  // 合并 options 和 userOptions 后查找选中项
+  const allOptions = [...options, ...(userOptions || [])]
+  const selectedOption = allOptions.find((o) => o.value === value) || options[0]
+  // 是否有用户自定义风格
+  const hasUserOptions = userOptions && userOptions.length > 0
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -141,6 +147,7 @@ export function StyleSelector({
 
       {isOpen && (
         <div className="glass-surface-modal absolute z-50 mt-1 left-0 p-3" style={{ minWidth: '320px' }}>
+          {/* 系统预设 */}
           <div className="grid grid-cols-2 gap-2">
             {options.map((option) => {
               const isSelected = value === option.value
@@ -165,6 +172,40 @@ export function StyleSelector({
               )
             })}
           </div>
+
+          {/* 用户自定义风格分组（仅在有用户风格时显示） */}
+          {hasUserOptions && (
+            <>
+              <div className="border-t border-[var(--glass-stroke-soft)] my-2" />
+              <div className="text-xs text-[var(--glass-text-tertiary)] px-3 py-1.5 font-medium">
+                自定义风格
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {userOptions.map((option) => {
+                  const isSelected = value === option.value
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => {
+                        onChange(option.value)
+                        setIsOpen(false)
+                      }}
+                      className={`flex items-center p-3 rounded-xl border text-left transition-all ${
+                        isSelected
+                          ? 'border-[var(--glass-accent-from)] bg-[var(--glass-accent-from)]/5 shadow-sm'
+                          : 'border-[var(--glass-stroke-soft)] hover:border-[var(--glass-stroke-strong)]'
+                      }`}
+                    >
+                      <span className={`text-sm whitespace-nowrap ${isSelected ? 'font-semibold text-[var(--glass-accent-from)]' : 'text-[var(--glass-text-secondary)]'}`}>
+                        {option.label}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>
