@@ -1,12 +1,12 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { resolveStylePrompt } from '@/lib/styles/style-resolver'
 
-// Mock Prisma client
-const mockPrisma = {
+// 使用 vi.hoisted 在 hoisting 之前定义 mock
+const mockPrisma = vi.hoisted(() => ({
   userStyle: {
     findUnique: vi.fn(),
   },
-}
+}))
 vi.mock('@/lib/prisma', () => ({ prisma: mockPrisma }))
 
 describe('预设风格', () => {
@@ -94,10 +94,17 @@ describe('安全性验证', () => {
 
   // Test 6: userId mismatch returns null
   it('user:uuid 存在但 userId 不匹配时返回 null（防止跨用户访问）', async () => {
-    // 即使 DB 中有记录，但 userId 不匹配也应返回 null
-    mockPrisma.userStyle.findUnique.mockResolvedValue({
-      promptZh: '其他用户的风格',
-      promptEn: 'Other user style',
+    // 模拟真实 DB 行为：findUnique 的 where 条件必须同时匹配 id 和 userId
+    // 当 userId 不匹配时，Prisma 返回 null
+    mockPrisma.userStyle.findUnique.mockImplementation(async ({ where }: { where: { id: string; userId: string } }) => {
+      if (where.userId !== 'user-123') {
+        // userId 不匹配，模拟 Prisma 返回 null
+        return null
+      }
+      return {
+        promptZh: '其他用户的风格',
+        promptEn: 'Other user style',
+      }
     })
     const result = await resolveStylePrompt('user:abc-123', 'user-456', 'zh')
     expect(result).toBeNull()
