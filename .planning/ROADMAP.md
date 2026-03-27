@@ -61,7 +61,9 @@ Plans:
   2. 4 个系统预设风格在 StyleSelector 中始终可见且不可删除（UI 层禁用删除按钮）
   3. DELETE `/api/user-styles/:id` 对系统预设 ID 调用时返回 403，服务端拒绝操作
   4. PUT `/api/user-styles/:id` 对系统预设 ID 调用时返回 403，服务端拒绝编辑
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 03-01-PLAN.md — TDD 实现向后兼容集成测试（8 断言）+ assertUserStyleNotSystem 保护函数 + artStylePrompt 废弃标记
 
 ### Phase 4: Worker 层集成
 **Goal**: 图片生成流程使用新解析器，自定义风格的提示词能正确注入到 AI 生成请求中
@@ -144,8 +146,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. UserStyle 数据模型 | 0/TBD | Not started | - |
-| 2. 风格解析器重构 | 1/1 | Complete   | 2026-03-27 |
-| 3. 向后兼容与系统预设保护 | 0/TBD | Not started | - |
+| 2. 风格解析器重构 | 1/1 | Complete    | 2026-03-27 |
+| 3. 向后兼容与系统预设保护 | 0/1 | Not started | - |
 | 4. Worker 层集成 | 0/TBD | Not started | - |
 | 5. 风格 CRUD API | 0/TBD | Not started | - |
 | 6. 风格标签 API | 0/TBD | Not started | - |
