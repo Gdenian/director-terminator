@@ -17,6 +17,9 @@ import { requireUserAuth, isErrorResponse } from '@/lib/api-auth'
 import { ApiError, apiHandler } from '@/lib/api-errors'
 import { uploadObject } from '@/lib/storage'
 import { prisma } from '@/lib/prisma'
+import { submitTask } from '@/lib/task/submitter'
+import { TASK_TYPE } from '@/lib/task/types'
+import { resolveRequiredTaskLocale } from '@/lib/task/resolve-locale'
 
 type RouteParams = { params: Promise<{ id: string }> }
 
@@ -92,8 +95,26 @@ export const POST = apiHandler(async (request: NextRequest, ctx: RouteParams) =>
     },
   })
 
-  // 9. 触发异步提取任务（Task 4 会添加队列）
-  // TODO: 添加队列触发
+  // 9. 触发异步提取任务
+  const userPref = await prisma.userPreference.findUnique({
+    where: { userId: session.user.id },
+    select: { analysisModel: true },
+  })
+
+  const locale = resolveRequiredTaskLocale(request, null)
+  await submitTask({
+    userId: session.user.id,
+    locale,
+    projectId: 'user-style', // 用户级别任务，不关联具体项目
+    type: TASK_TYPE.STYLE_EXTRACT,
+    targetType: 'user-style',
+    targetId: id,
+    payload: {
+      styleId: id,
+      referenceImageUrl: key,
+      analysisModel: userPref?.analysisModel ?? null,
+    },
+  })
 
   return NextResponse.json({ style: updated })
 })

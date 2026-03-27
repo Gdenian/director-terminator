@@ -45,6 +45,7 @@
 - 每个风格包含 value、label、preview、promptZh、promptEn 字段
 - 风格提示词通过 `getArtStylePrompt()` 注入到图片生成的 prompt 中
 - 数据库中 `NovelPromotionProject.artStyle` 字段存储风格值（默认 'american-comic'）
+- Phase 2 完成：`resolveStylePrompt()` 统一解析器已建立（`src/lib/styles/style-resolver.ts`），支持系统预设和用户自定义两类风格；`artStylePrompt` 缓存写入路径已废弃
 - UI 通过 `StyleSelector` 组件在配置弹窗和创建表单中使用
 - 项目使用 Prisma + MySQL，用户认证基于 next-auth
 - 已有 S3 兼容的文件存储系统（参考图上传可复用）

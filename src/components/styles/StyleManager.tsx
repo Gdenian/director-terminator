@@ -2,7 +2,7 @@
 
 /**
  * 风格管理组件
- * 管理用户自定义风格列表，支持查看、删除操作
+ * 管理用户自定义风格列表，支持查看、创建、编辑、删除操作
  */
 import { useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
@@ -12,6 +12,7 @@ import { useUserStyles, type UserStyle } from '@/hooks/useUserStyles'
 import { useToast } from '@/contexts/ToastContext'
 import { apiFetch } from '@/lib/api-fetch'
 import { StyleCard } from './StyleCard'
+import { StyleCreateModal } from './StyleCreateModal'
 import { ConfigDeleteModal } from '@/components/ui/config-modals/ConfigDeleteModal'
 import { MAX_STYLE_LIMIT } from '@/lib/styles/style-service'
 
@@ -69,6 +70,8 @@ export function StyleManager() {
 
   const [deleteTarget, setDeleteTarget] = useState<UserStyle | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [editTarget, setEditTarget] = useState<UserStyle | null>(null)
 
   // 未登录提示
   if (status !== 'authenticated') {
@@ -124,7 +127,8 @@ export function StyleManager() {
         </div>
         <button
           onClick={() => {
-            // 打开创建弹窗，Phase 9 Plan 02 实现
+            setEditTarget(null)
+            setIsCreateModalOpen(true)
           }}
           disabled={isLimitReached}
           className="glass-btn-base glass-btn-primary px-4 py-2 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -152,7 +156,11 @@ export function StyleManager() {
                 key={style.id}
                 style={style}
                 onEdit={() => {
-                  // Phase 9 Plan 02 实现
+                  const foundStyle = styles.find((s) => s.id === style.id)
+                  if (foundStyle) {
+                    setEditTarget(foundStyle)
+                    setIsCreateModalOpen(true)
+                  }
                 }}
                 onDelete={() =>
                   setDeleteTarget(styles.find((s) => s.id === style.id) || null)
@@ -171,6 +179,21 @@ export function StyleManager() {
         title={t('deleteStyleTitle')}
         description={t('deleteStyleDesc', { name: deleteTarget?.name || '' })}
         deleteDisabled={isDeleting}
+      />
+
+      {/* 创建/编辑弹窗 */}
+      <StyleCreateModal
+        isOpen={isCreateModalOpen}
+        onClose={() => {
+          setIsCreateModalOpen(false)
+          setEditTarget(null)
+        }}
+        onSuccess={() => {
+          setIsCreateModalOpen(false)
+          setEditTarget(null)
+          refresh()  // 刷新列表
+        }}
+        editStyle={editTarget}
       />
     </div>
   )
