@@ -149,7 +149,7 @@ Plans:
 **Plans**: 2 plans
 Plans:
 - [x] 09-01-PLAN.md — 风格列表管理（Profile Tab + StyleManager + StyleCard + 删除功能）
-- [ ] 09-02-PLAN.md — 风格创建/编辑弹窗（StyleCreateModal + StyleTagSelector + ReferenceImageUpload）
+- [x] 09-02-PLAN.md — 风格创建/编辑弹窗（StyleCreateModal + StyleTagSelector + ReferenceImageUpload）
 
 ## Progress
 

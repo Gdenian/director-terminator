@@ -18,10 +18,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### AI 风格提取 (EXTRACT)
 
-- [ ] **EXTRACT-01**: 用户可以上传参考图片作为风格参考
-- [ ] **EXTRACT-02**: 系统 AI 自动从参考图提取风格描述（输出风格特征而非内容描述）
-- [ ] **EXTRACT-03**: AI 提取结果用户可编辑修改后保存
-- [ ] **EXTRACT-04**: 参考图提取显示状态追踪（pending/completed/failed）
+- [x] **EXTRACT-01**: 用户可以上传参考图片作为风格参考
+- [x] **EXTRACT-02**: 系统 AI 自动从参考图提取风格描述（输出风格特征而非内容描述）
+- [x] **EXTRACT-03**: AI 提取结果用户可编辑修改后保存
+- [x] **EXTRACT-04**: 参考图提取显示状态追踪（pending/completed/failed）
 
 ### 系统集成 (INTEG)
 
@@ -74,10 +74,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | STYLE-04 | Phase 5 | Complete |
 | STYLE-05 | Phase 6 | Complete |
 | STYLE-06 | Phase 5 | Complete |
-| EXTRACT-01 | Phase 7 | Pending |
-| EXTRACT-02 | Phase 7 | Pending |
-| EXTRACT-03 | Phase 7 | Pending |
-| EXTRACT-04 | Phase 7 | Pending |
+| EXTRACT-01 | Phase 7 | Complete |
+| EXTRACT-02 | Phase 7 | Complete |
+| EXTRACT-03 | Phase 7 | Complete |
+| EXTRACT-04 | Phase 7 | Complete |
 | INTEG-01 | Phase 3 | Complete |
 | INTEG-02 | Phase 3 | Complete |
 | INTEG-03 | Phase 8 | Complete |
