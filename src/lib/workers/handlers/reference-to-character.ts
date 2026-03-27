@@ -191,6 +191,8 @@ export async function handleReferenceToCharacterTask(job: Job<TaskJobData>) {
     }
   }
 
+  // 🔥 废弃 (Phase 3): 此处使用 getArtStylePrompt 直接获取。
+  // 实时风格 prompt 统一通过 resolveStylePrompt() 获取（Phase 2）。
   const artStylePrompt = getArtStylePrompt(artStyle, job.data.locale)
 
   const basePrompt = customDescription || buildPrompt({

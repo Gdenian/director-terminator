@@ -253,6 +253,8 @@ model NovelPromotionProject {
   ttsRate         String                    @default("+50%")
   globalAssetText String?                   @db.Text
   artStyle        String                    @default("american-comic")
+  // 🔥 废弃 (Phase 3): 实时风格 prompt 统一通过 resolveStylePrompt() 获取。
+  // 此字段将在后续迁移中删除。
   artStylePrompt  String?                   @db.Text
   characterModel  String? // 用户配置的角色图片模型
   locationModel   String? // 用户配置的场景图片模型
@@ -424,6 +426,7 @@ model User {
   taskEvents         TaskEvent[]
   graphRuns          GraphRun[]
   graphEvents        GraphEvent[]
+  styles            UserStyle[]
 
   @@map("user")
 }
@@ -997,4 +1000,23 @@ model LegacyMediaRefBackup {
   @@index([runId])
   @@index([tableName, fieldName])
   @@map("legacy_media_refs_backup")
+}
+
+model UserStyle {
+  id                String   @id @default(uuid())
+  userId            String
+  name              String
+  promptZh          String   @db.Text
+  promptEn          String   @db.Text
+  tags              String?  @db.Text
+  referenceImageUrl String?  @db.Text
+  isSystem          Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now()) @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, name])
+  @@index([userId])
+  @@map("user_styles")
 }

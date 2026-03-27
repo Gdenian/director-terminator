@@ -260,6 +260,9 @@ export interface NovelPromotionProject {
   ttsRate: string
   workflowMode: WorkflowMode  // 新增：工作流模式
   artStyle: string
+  // 🔥 废弃 (Phase 3): 此字段不再写入也不再读取。
+  // 实时风格 prompt 统一通过 resolveStylePrompt() 获取（Phase 2）。
+  // 将在后续迁移中从 schema 删除。
   artStylePrompt: string | null
   audioUrl: string | null
   media?: MediaRef | null
