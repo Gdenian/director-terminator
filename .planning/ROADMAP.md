@@ -17,8 +17,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: 向后兼容与系统预设保护** - 确保现有项目 artStyle 数据不损坏，系统预设服务端写保护 (completed 2026-03-27)
 - [x] **Phase 4: Worker 层集成** - 所有 Worker handler 调用点切换到新解析器 (completed 2026-03-27)
 - [x] **Phase 5: 风格 CRUD API** - 创建/编辑/删除风格的后端端点，含数量限制事务保护 (completed 2026-03-27)
-- [ ] **Phase 6: 风格标签 API** - 标签数据结构和查询支持
-- [ ] **Phase 7: AI 参考图提取** - 上传参考图并通过 LLM Vision 提取风格描述草稿
+- [x] **Phase 6: 风格标签 API** - 标签数据结构和查询支持 (completed 2026-03-27)
+- [x] **Phase 7: AI 参考图提取** - 上传参考图并通过 LLM Vision 提取风格描述草稿 (completed 2026-03-27)
 - [ ] **Phase 8: StyleSelector 扩展** - 混合展示系统预设和用户自定义风格
 - [ ] **Phase 9: 风格管理 UI** - StyleManager 风格库、StyleCreateModal 创建/编辑、StyleTagSelector 标签选择
 
@@ -91,7 +91,7 @@ Plans:
   6. 所有端点需要认证，未登录用户收到 401
 **Plans**: 1 plan
 Plans:
-- [ ] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
+- [x] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
 
 ### Phase 6: 风格标签 API
 **Goal**: 用户可以给风格打标签，标签数据可存储和查询
@@ -103,7 +103,7 @@ Plans:
   3. 标签值支持中文和英文（如"写实"、"动漫"、"抽象"）
 **Plans**: 1 plan
 Plans:
-- [ ] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
+- [x] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
 
 ### Phase 7: AI 参考图提取
 **Goal**: 用户上传参考图后 AI 自动产出风格描述草稿，用户可编辑后保存
@@ -118,7 +118,7 @@ Plans:
 **UI hint**: yes
 **Plans**: 1 plan
 Plans:
-- [ ] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
+- [x] 07-01-PLAN.md — AI 参考图提取功能实现
 
 ### Phase 8: StyleSelector 扩展
 **Goal**: 用户在选择风格时能在同一个选择器中看到系统预设和自己创建的自定义风格
@@ -132,7 +132,7 @@ Plans:
 **UI hint**: yes
 **Plans**: 1 plan
 Plans:
-- [ ] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
+- [x] 08-01-PLAN.md — 创建 useUserStyles hook，扩展两个 StyleSelector 组件支持分组展示，更新后端验证支持用户风格
 
 ### Phase 9: 风格管理 UI
 **Goal**: 用户有完整的 UI 界面来创建、编辑、删除自定义风格，包含参考图上传和标签选择
@@ -148,7 +148,7 @@ Plans:
 **UI hint**: yes
 **Plans**: 1 plan
 Plans:
-- [ ] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
+- [ ] 09-01-PLAN.md — StyleManager 风格库 UI 实现
 
 ## Progress
 
@@ -161,8 +161,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 2. 风格解析器重构 | 1/1 | Complete    | 2026-03-27 |
 | 3. 向后兼容与系统预设保护 | 0/1 | Complete    | 2026-03-27 |
 | 4. Worker 层集成 | 1/1 | Complete   | 2026-03-27 |
-| 5. 风格 CRUD API | 1/1 | Complete   | 2026-03-27 |
-| 6. 风格标签 API | 0/TBD | Not started | - |
-| 7. AI 参考图提取 | 0/TBD | Not started | - |
-| 8. StyleSelector 扩展 | 0/TBD | Not started | - |
+| 5. 风格 CRUD API | 1/1 | Complete    | 2026-03-27 |
+| 6. 风格标签 API | 0/TBD | Complete    | 2026-03-27 |
+| 7. AI 参考图提取 | 1/1 | Complete    | 2026-03-27 |
+| 8. StyleSelector 扩展 | 0/1 | Planning | - |
 | 9. 风格管理 UI | 0/TBD | Not started | - |
