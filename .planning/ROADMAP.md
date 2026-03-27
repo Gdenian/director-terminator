@@ -89,7 +89,9 @@ Plans:
   4. DELETE `/api/user-styles/:id` 成功删除风格，后续 GET 不再返回该条目
   5. 当用户风格数量达到上限时，POST 返回 422 并包含明确错误信息（不创建新记录）
   6. 所有端点需要认证，未登录用户收到 401
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
 
 ### Phase 6: 风格标签 API
 **Goal**: 用户可以给风格打标签，标签数据可存储和查询
@@ -99,7 +101,9 @@ Plans:
   1. 创建或编辑风格时可以传入标签数组，标签正确持久化
   2. GET `/api/user-styles` 返回的每条风格记录包含 tags 字段
   3. 标签值支持中文和英文（如"写实"、"动漫"、"抽象"）
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
 
 ### Phase 7: AI 参考图提取
 **Goal**: 用户上传参考图后 AI 自动产出风格描述草稿，用户可编辑后保存
@@ -112,7 +116,9 @@ Plans:
   4. 用户可以在 completed 状态下编辑 AI 生成的草稿后保存为正式风格
   5. 提取失败时用户看到明确错误提示，可重试
 **UI hint**: yes
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
 
 ### Phase 8: StyleSelector 扩展
 **Goal**: 用户在选择风格时能在同一个选择器中看到系统预设和自己创建的自定义风格
@@ -124,7 +130,9 @@ Plans:
   3. 选中自定义风格后，项目的 `artStyle` 字段保存 `"user:uuid"` 格式标识符
   4. 当用户没有自定义风格时，StyleSelector 仅展示系统预设，不显示空分组
 **UI hint**: yes
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
 
 ### Phase 9: 风格管理 UI
 **Goal**: 用户有完整的 UI 界面来创建、编辑、删除自定义风格，包含参考图上传和标签选择
@@ -138,7 +146,9 @@ Plans:
   5. 用户可以删除自定义风格，删除后风格列表立即更新
   6. 用户风格数量达到上限时，"新建风格"按钮禁用并显示上限提示文案
 **UI hint**: yes
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 05-crud-api-01-PLAN.md — 实现 /api/user-styles CRUD API 端点，含 $transaction 数量上限保护
 
 ## Progress
 
@@ -151,7 +161,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 2. 风格解析器重构 | 1/1 | Complete    | 2026-03-27 |
 | 3. 向后兼容与系统预设保护 | 0/1 | Complete    | 2026-03-27 |
 | 4. Worker 层集成 | 1/1 | Complete   | 2026-03-27 |
-| 5. 风格 CRUD API | 0/TBD | Not started | - |
+| 5. 风格 CRUD API | 0/1 | Not started | - |
 | 6. 风格标签 API | 0/TBD | Not started | - |
 | 7. AI 参考图提取 | 0/TBD | Not started | - |
 | 8. StyleSelector 扩展 | 0/TBD | Not started | - |
