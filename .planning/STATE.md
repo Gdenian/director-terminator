@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Phase complete — ready for verification
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-27T02:41:34.933Z"
+stopped_at: Completed 03-backward-compat-01 plan
+last_updated: "2026-03-27T03:13:43.752Z"
 progress:
   total_phases: 9
-  completed_phases: 2
-  total_plans: 3
-  completed_plans: 3
+  completed_phases: 3
+  total_plans: 4
+  completed_plans: 4
 ---
 
 # Project State
@@ -19,11 +19,11 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-27)
 
 **Core value:** 用户可以用自己定义的视觉风格生成视频，而不受限于固定的预设选项
-**Current focus:** Phase 2 — style-resolver
+**Current focus:** Phase 3 — backward-compat
 
 ## Current Position
 
-Phase: 2 (style-resolver) — EXECUTING
+Phase: 3 (backward-compat) — EXECUTING
 Plan: 1 of 1
 
 ## Performance Metrics
@@ -47,6 +47,7 @@ Plan: 1 of 1
 
 *Updated after each plan completion*
 | Phase 02 P01 | 320 | 3 tasks | 4 files |
+| Phase 03-backward-compat P01 | 5 | 3 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -62,6 +63,9 @@ Recent decisions affecting current work:
 - [Phase 02]: resolveStylePrompt 返回 Promise&lt;string | null&gt; 而非 UserStylePrompt 类型
 - [Phase 02]: userId 必须在 DB 查询 where 条件中，防止跨用户访问
 - [Phase 02]: 预设风格路径不查库，直接从 ART_STYLES 常量查找
+- [Phase 03-backward-compat]: D-16: isSystem === true 时才抛出 403，null/undefined/false 均不抛出
+- [Phase 03-backward-compat]: D-18: assertUserStyleNotSystem(userStyleId, userId) 函数签名，userId 必须在 where 条件中
+- [Phase 03-backward-compat]: D-19: 使用 ApiError('FORBIDDEN') 而非 'STYLE_SYSTEM_NOT_MODIFIABLE'，因为后者不在 ERROR_CATALOG 中
 
 ### Pending Todos
 
@@ -74,6 +78,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T02:41:34.931Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-27T03:13:43.750Z
+Stopped at: Completed 03-backward-compat-01 plan
 Resume file: None

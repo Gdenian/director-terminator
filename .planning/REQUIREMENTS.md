@@ -25,8 +25,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### 系统集成 (INTEG)
 
-- [ ] **INTEG-01**: 4 个系统预设风格保留且不可删除不可编辑
-- [ ] **INTEG-02**: 现有项目的 artStyle 数据完全向后兼容，无数据损坏
+- [x] **INTEG-01**: 4 个系统预设风格保留且不可删除不可编辑
+- [x] **INTEG-02**: 现有项目的 artStyle 数据完全向后兼容，无数据损坏
 - [ ] **INTEG-03**: StyleSelector 扩展为混合展示系统预设和用户自定义风格
 - [ ] **INTEG-04**: 统一风格解析器 resolveStylePrompt 替代 getArtStylePrompt，支持预设和自定义风格
 - [ ] **INTEG-05**: 所有 Worker handler 的图片生成流程正确使用新解析器
@@ -78,8 +78,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXTRACT-02 | Phase 7 | Pending |
 | EXTRACT-03 | Phase 7 | Pending |
 | EXTRACT-04 | Phase 7 | Pending |
-| INTEG-01 | Phase 3 | Pending |
-| INTEG-02 | Phase 3 | Pending |
+| INTEG-01 | Phase 3 | Complete |
+| INTEG-02 | Phase 3 | Complete |
 | INTEG-03 | Phase 8 | Pending |
 | INTEG-04 | Phase 2 | Pending |
 | INTEG-05 | Phase 4 | Pending |

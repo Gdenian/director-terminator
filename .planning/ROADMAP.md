@@ -63,7 +63,7 @@ Plans:
   4. PUT `/api/user-styles/:id` 对系统预设 ID 调用时返回 403，服务端拒绝编辑
 **Plans**: 1 plan
 Plans:
-- [ ] 03-01-PLAN.md — TDD 实现向后兼容集成测试（8 断言）+ assertUserStyleNotSystem 保护函数 + artStylePrompt 废弃标记
+- [x] 03-01-PLAN.md — TDD 实现向后兼容集成测试（8 断言）+ assertUserStyleNotSystem 保护函数 + artStylePrompt 废弃标记
 
 ### Phase 4: Worker 层集成
 **Goal**: 图片生成流程使用新解析器，自定义风格的提示词能正确注入到 AI 生成请求中
