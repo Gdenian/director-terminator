@@ -4,6 +4,7 @@ import { logProjectAction } from '@/lib/logging/semantic'
 import { requireProjectAuthLight, isErrorResponse } from '@/lib/api-auth'
 import { apiHandler, ApiError } from '@/lib/api-errors'
 import { isArtStyleValue } from '@/lib/constants'
+import { isUserStyle, extractUserStyleId } from '@/lib/styles/style-namespace'
 import { attachMediaFieldsToProject } from '@/lib/media/attach'
 import {
   parseModelKeyStrict,
@@ -113,7 +114,12 @@ function validateModelKeyField(field: typeof MODEL_FIELDS[number], value: unknow
   }
 }
 
-function validateArtStyleField(value: unknown): string {
+/**
+ * 验证 artStyle 字段
+ * - 系统预设标识符（如 "american-comic"）：直接验证
+ * - 用户风格标识符（如 "user:uuid"）：查询数据库验证存在性和所有权
+ */
+async function validateArtStyleField(value: unknown, userId: string): Promise<string> {
   if (typeof value !== 'string') {
     throw new ApiError('INVALID_PARAMS', {
       code: 'INVALID_ART_STYLE',
@@ -122,11 +128,30 @@ function validateArtStyleField(value: unknown): string {
     })
   }
   const artStyle = value.trim()
-  if (!isArtStyleValue(artStyle)) {
+
+  // 系统预设路径
+  if (!isUserStyle(artStyle)) {
+    if (!isArtStyleValue(artStyle)) {
+      throw new ApiError('INVALID_PARAMS', {
+        code: 'INVALID_ART_STYLE',
+        field: 'artStyle',
+        message: 'artStyle must be a supported value',
+      })
+    }
+    return artStyle
+  }
+
+  // 用户风格路径：验证存在性和所有权
+  const styleId = extractUserStyleId(artStyle)
+  const userStyle = await prisma.userStyle.findUnique({
+    where: { id: styleId, userId },
+    select: { id: true },
+  })
+  if (!userStyle) {
     throw new ApiError('INVALID_PARAMS', {
       code: 'INVALID_ART_STYLE',
       field: 'artStyle',
-      message: 'artStyle must be a supported value',
+      message: '指定的自定义风格不存在',
     })
   }
   return artStyle
@@ -310,7 +335,7 @@ export const PATCH = apiHandler(async (
     }
 
     if (field === 'artStyle') {
-      updateData[field] = validateArtStyleField(body[field])
+      updateData[field] = await validateArtStyleField(body[field], session.user.id)
       continue
     }
 
