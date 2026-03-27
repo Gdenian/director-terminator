@@ -15,6 +15,7 @@ import { filterNormalVideoModelOptions } from '@/lib/model-capabilities/video-mo
 import { RatioSelector, StyleSelector } from './config-modal-selectors'
 import { ModelCapabilityDropdown } from './ModelCapabilityDropdown'
 import { AppIcon } from '@/components/ui/icons'
+import { useUserStyles } from '@/hooks/useUserStyles'
 
 interface ModelOption {
     value: string
@@ -152,6 +153,8 @@ export function SettingsModal({
 }: SettingsModalProps) {
     const t = useTranslations('configModal')
     const [saveStatus, setSaveStatus] = useState<'idle' | 'saved'>('idle')
+    // 获取用户自定义风格
+    const { options: userStyleOptions } = useUserStyles()
     const userModels = useMemo<UserModels>(() => ({
         llm: Array.isArray(availableModels?.llm) ? availableModels.llm : [],
         image: Array.isArray(availableModels?.image) ? availableModels.image : [],
@@ -374,6 +377,7 @@ export function SettingsModal({
                                     value={artStyle}
                                     onChange={(value) => handleChange(onArtStyleChange)(value)}
                                     options={ART_STYLES}
+                                    userOptions={userStyleOptions}
                                 />
                             </div>
                             <div className="space-y-2">
