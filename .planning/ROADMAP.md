@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 1: UserStyle 数据模型** - 新增 UserStyle Prisma 模型和数据库迁移，建立风格命名空间约定
 - [x] **Phase 2: 风格解析器重构** - 用异步 getStylePrompt() 替换同步 getArtStylePrompt()，废弃缓存字段 (completed 2026-03-27)
 - [x] **Phase 3: 向后兼容与系统预设保护** - 确保现有项目 artStyle 数据不损坏，系统预设服务端写保护 (completed 2026-03-27)
-- [ ] **Phase 4: Worker 层集成** - 所有 Worker handler 调用点切换到新解析器
+- [x] **Phase 4: Worker 层集成** - 所有 Worker handler 调用点切换到新解析器 (completed 2026-03-27)
 - [ ] **Phase 5: 风格 CRUD API** - 创建/编辑/删除风格的后端端点，含数量限制事务保护
 - [ ] **Phase 6: 风格标签 API** - 标签数据结构和查询支持
 - [ ] **Phase 7: AI 参考图提取** - 上传参考图并通过 LLM Vision 提取风格描述草稿
@@ -76,7 +76,7 @@ Plans:
   4. Worker handler 编译无 TypeScript 错误，现有测试通过
 **Plans**: 1 plan
 Plans:
-- [ ] 04-01-PLAN.md — 批量替换 6 个 worker handler 的 getArtStylePrompt 为 resolveStylePrompt，清理 analyze-novel.ts 废弃 import
+- [x] 04-01-PLAN.md — 批量替换 6 个 worker handler 的 getArtStylePrompt 为 resolveStylePrompt，清理 analyze-novel.ts 废弃 import
 
 ### Phase 5: 风格 CRUD API
 **Goal**: 用户可以通过 API 完整管理自定义风格的生命周期，数量上限得到可靠保护
@@ -150,7 +150,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 1. UserStyle 数据模型 | 0/TBD | Not started | - |
 | 2. 风格解析器重构 | 1/1 | Complete    | 2026-03-27 |
 | 3. 向后兼容与系统预设保护 | 0/1 | Complete    | 2026-03-27 |
-| 4. Worker 层集成 | 0/1 | Not started | - |
+| 4. Worker 层集成 | 1/1 | Complete   | 2026-03-27 |
 | 5. 风格 CRUD API | 0/TBD | Not started | - |
 | 6. 风格标签 API | 0/TBD | Not started | - |
 | 7. AI 参考图提取 | 0/TBD | Not started | - |
