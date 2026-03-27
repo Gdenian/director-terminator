@@ -361,13 +361,6 @@ export async function handleAnalyzeNovelTask(job: Job<TaskJobData>) {
     createdProps.push(created)
   }
 
-  await prisma.novelPromotionProject.update({
-    where: { id: novelData.id },
-    data: {
-      artStylePrompt: getArtStylePrompt(novelData.artStyle, job.data.locale) || '',
-    },
-  })
-
   await reportTaskProgress(job, 96, {
     stage: 'analyze_novel_done',
     stageLabel: '资产分析已完成',
