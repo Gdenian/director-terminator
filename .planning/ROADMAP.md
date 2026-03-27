@@ -46,7 +46,7 @@ Plans:
   1. `lib/styles/style-resolver.ts` 中 `getStylePrompt()` 为异步函数，能正确解析系统预设和用户自定义两类标识符
   2. 传入 `"american-comic"` 等旧标识符时返回正确的提示词（向后兼容验证）
   3. 传入 `"user:uuid"` 格式标识符时查询数据库返回对应风格的提示词
-  4. `artStylePrompt` 缓存字段已废弃，不再被任何代码路径写入或读取
+  4. `artStylePrompt` 缓存字段已废弃，不再向该字段写入任何数据（读取路径的移除属于 Phase 3 范围）
   5. 风格创建操作使用 Prisma `$transaction` 包裹数量检查和插入，防止竞态条件
 **Plans**: 1 plan
 Plans:
