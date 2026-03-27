@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Phase complete — ready for verification
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-27T03:38:12.722Z"
+stopped_at: Completed 05-crud-api plan
+last_updated: "2026-03-27T04:07:01.672Z"
 progress:
   total_phases: 9
-  completed_phases: 4
-  total_plans: 5
-  completed_plans: 5
+  completed_phases: 5
+  total_plans: 6
+  completed_plans: 6
 ---
 
 # Project State
@@ -19,11 +19,11 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-27)
 
 **Core value:** 用户可以用自己定义的视觉风格生成视频，而不受限于固定的预设选项
-**Current focus:** Phase 4 — worker-integration
+**Current focus:** Phase 05 — crud-api
 
 ## Current Position
 
-Phase: 4 (worker-integration) — EXECUTING
+Phase: 05 (crud-api) — EXECUTING
 Plan: 1 of 1
 
 ## Performance Metrics
@@ -67,6 +67,14 @@ Recent decisions affecting current work:
 - [Phase 03-backward-compat]: D-16: isSystem === true 时才抛出 403，null/undefined/false 均不抛出
 - [Phase 03-backward-compat]: D-18: assertUserStyleNotSystem(userStyleId, userId) 函数签名，userId 必须在 where 条件中
 - [Phase 03-backward-compat]: D-19: 使用 ApiError('FORBIDDEN') 而非 'STYLE_SYSTEM_NOT_MODIFIABLE'，因为后者不在 ERROR_CATALOG 中
+- [Phase 05-crud-api]: D-30: REST API: POST/GET /api/user-styles, PUT/DELETE /api/user-styles/:id
+- [Phase 05-crud-api]: D-31: 所有端点需要认证（requireUserAuth），未登录返回 401
+- [Phase 05-crud-api]: D-32: createUserStyle 使用 $transaction 包裹计数检查和插入操作
+- [Phase 05-crud-api]: D-33: updateUserStyle 和 deleteUserStyle 调用 assertUserStyleNotSystem 保护系统预设
+- [Phase 05-crud-api]: D-34: createUserStyle 创建后调用 resolveStylePrompt 验证提示词可解析
+- [Phase 05-crud-api]: D-35: P2002 唯一索引冲突返回 409 Conflict
+- [Phase 05-crud-api]: D-36: API 响应使用 select 明确字段，排除 isSystem
+- [Phase 05-crud-api]: D-37: 使用 Zod safeParse 进行请求体验证
 
 ### Pending Todos
 
@@ -79,6 +87,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-27T03:38:12.720Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-03-27T04:06:38.648Z
+Stopped at: Completed 05-crud-api plan
 Resume file: None

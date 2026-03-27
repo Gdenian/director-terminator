@@ -9,12 +9,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### 风格管理 (STYLE)
 
-- [ ] **STYLE-01**: 用户可以创建自定义风格，包含名称和中英文描述提示词
-- [ ] **STYLE-02**: 用户可以编辑已创建的自定义风格（名称、描述、标签）
-- [ ] **STYLE-03**: 用户可以删除自定义风格
-- [ ] **STYLE-04**: 系统限制每用户最多创建 N 个自定义风格，达到上限时给出明确提示
+- [x] **STYLE-01**: 用户可以创建自定义风格，包含名称和中英文描述提示词
+- [x] **STYLE-02**: 用户可以编辑已创建的自定义风格（名称、描述、标签）
+- [x] **STYLE-03**: 用户可以删除自定义风格
+- [x] **STYLE-04**: 系统限制每用户最多创建 N 个自定义风格，达到上限时给出明确提示
 - [ ] **STYLE-05**: 用户可以给风格打标签分类（如"写实"、"动漫"、"抽象"）
-- [ ] **STYLE-06**: 自定义风格保存在用户账号级别，所有项目可复用
+- [x] **STYLE-06**: 自定义风格保存在用户账号级别，所有项目可复用
 
 ### AI 风格提取 (EXTRACT)
 
@@ -68,12 +68,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| STYLE-01 | Phase 5 | Pending |
-| STYLE-02 | Phase 5 | Pending |
-| STYLE-03 | Phase 5 | Pending |
-| STYLE-04 | Phase 5 | Pending |
+| STYLE-01 | Phase 5 | Complete |
+| STYLE-02 | Phase 5 | Complete |
+| STYLE-03 | Phase 5 | Complete |
+| STYLE-04 | Phase 5 | Complete |
 | STYLE-05 | Phase 6 | Pending |
-| STYLE-06 | Phase 5 | Pending |
+| STYLE-06 | Phase 5 | Complete |
 | EXTRACT-01 | Phase 7 | Pending |
 | EXTRACT-02 | Phase 7 | Pending |
 | EXTRACT-03 | Phase 7 | Pending |

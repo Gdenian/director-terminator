@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: 风格解析器重构** - 用异步 getStylePrompt() 替换同步 getArtStylePrompt()，废弃缓存字段 (completed 2026-03-27)
 - [x] **Phase 3: 向后兼容与系统预设保护** - 确保现有项目 artStyle 数据不损坏，系统预设服务端写保护 (completed 2026-03-27)
 - [x] **Phase 4: Worker 层集成** - 所有 Worker handler 调用点切换到新解析器 (completed 2026-03-27)
-- [ ] **Phase 5: 风格 CRUD API** - 创建/编辑/删除风格的后端端点，含数量限制事务保护
+- [x] **Phase 5: 风格 CRUD API** - 创建/编辑/删除风格的后端端点，含数量限制事务保护 (completed 2026-03-27)
 - [ ] **Phase 6: 风格标签 API** - 标签数据结构和查询支持
 - [ ] **Phase 7: AI 参考图提取** - 上传参考图并通过 LLM Vision 提取风格描述草稿
 - [ ] **Phase 8: StyleSelector 扩展** - 混合展示系统预设和用户自定义风格
@@ -161,7 +161,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 2. 风格解析器重构 | 1/1 | Complete    | 2026-03-27 |
 | 3. 向后兼容与系统预设保护 | 0/1 | Complete    | 2026-03-27 |
 | 4. Worker 层集成 | 1/1 | Complete   | 2026-03-27 |
-| 5. 风格 CRUD API | 0/1 | Not started | - |
+| 5. 风格 CRUD API | 1/1 | Complete   | 2026-03-27 |
 | 6. 风格标签 API | 0/TBD | Not started | - |
 | 7. AI 参考图提取 | 0/TBD | Not started | - |
 | 8. StyleSelector 扩展 | 0/TBD | Not started | - |
