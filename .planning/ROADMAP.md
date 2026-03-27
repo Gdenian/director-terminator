@@ -13,7 +13,7 @@
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: UserStyle 数据模型** - 新增 UserStyle Prisma 模型和数据库迁移，建立风格命名空间约定
-- [ ] **Phase 2: 风格解析器重构** - 用异步 getStylePrompt() 替换同步 getArtStylePrompt()，废弃缓存字段
+- [x] **Phase 2: 风格解析器重构** - 用异步 getStylePrompt() 替换同步 getArtStylePrompt()，废弃缓存字段 (completed 2026-03-27)
 - [ ] **Phase 3: 向后兼容与系统预设保护** - 确保现有项目 artStyle 数据不损坏，系统预设服务端写保护
 - [ ] **Phase 4: Worker 层集成** - 所有 Worker handler 调用点切换到新解析器
 - [ ] **Phase 5: 风格 CRUD API** - 创建/编辑/删除风格的后端端点，含数量限制事务保护
@@ -50,7 +50,7 @@ Plans:
   5. 风格创建操作使用 Prisma `$transaction` 包裹数量检查和插入，防止竞态条件
 **Plans**: 1 plan
 Plans:
-- [ ] 02-01-PLAN.md — TDD 创建异步 resolveStylePrompt() 解析器 + 移除 analyze-novel.ts 中 artStylePrompt 写入路径
+- [x] 02-01-PLAN.md — TDD 创建异步 resolveStylePrompt() 解析器 + 移除 analyze-novel.ts 中 artStylePrompt 写入路径
 
 ### Phase 3: 向后兼容与系统预设保护
 **Goal**: 现有所有项目数据完全不受影响，系统预设在 API 层有服务端写保护
@@ -144,7 +144,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. UserStyle 数据模型 | 0/TBD | Not started | - |
-| 2. 风格解析器重构 | 0/TBD | Not started | - |
+| 2. 风格解析器重构 | 1/1 | Complete   | 2026-03-27 |
 | 3. 向后兼容与系统预设保护 | 0/TBD | Not started | - |
 | 4. Worker 层集成 | 0/TBD | Not started | - |
 | 5. 风格 CRUD API | 0/TBD | Not started | - |
