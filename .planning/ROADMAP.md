@@ -19,8 +19,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 5: 风格 CRUD API** - 创建/编辑/删除风格的后端端点，含数量限制事务保护 (completed 2026-03-27)
 - [x] **Phase 6: 风格标签 API** - 标签数据结构和查询支持 (completed 2026-03-27)
 - [x] **Phase 7: AI 参考图提取** - 上传参考图并通过 LLM Vision 提取风格描述草稿 (completed 2026-03-27)
-- [ ] **Phase 8: StyleSelector 扩展** - 混合展示系统预设和用户自定义风格
-- [ ] **Phase 9: 风格管理 UI** - StyleManager 风格库、StyleCreateModal 创建/编辑、StyleTagSelector 标签选择
+- [x] **Phase 8: StyleSelector 扩展** - 混合展示系统预设和用户自定义风格 (completed 2026-03-27)
+- [x] **Phase 9: 风格管理 UI** - StyleManager 风格库、StyleCreateModal 创建/编辑、StyleTagSelector 标签选择 (in progress)
 
 ## Phase Details
 
@@ -137,7 +137,7 @@ Plans:
 ### Phase 9: 风格管理 UI
 **Goal**: 用户有完整的 UI 界面来创建、编辑、删除自定义风格，包含参考图上传和标签选择
 **Depends on**: Phase 6, Phase 7, Phase 8
-**Requirements**: (所有 STYLE 和 EXTRACT 需求通过本阶段 UI 对用户可见地完成交付)
+**Requirements**: STYLE-01, STYLE-02, STYLE-03, STYLE-04, STYLE-05, STYLE-06, EXTRACT-01, EXTRACT-02, EXTRACT-03, EXTRACT-04
 **Success Criteria** (what must be TRUE):
   1. 用户可以打开风格管理页面，看到自己所有自定义风格的列表（含标签和参考图缩略图）
   2. 用户可以点击"新建风格"，填写名称、提示词和标签后保存
@@ -146,9 +146,10 @@ Plans:
   5. 用户可以删除自定义风格，删除后风格列表立即更新
   6. 用户风格数量达到上限时，"新建风格"按钮禁用并显示上限提示文案
 **UI hint**: yes
-**Plans**: 1 plan
+**Plans**: 2 plans
 Plans:
-- [ ] 09-01-PLAN.md — StyleManager 风格库 UI 实现
+- [x] 09-01-PLAN.md — 风格列表管理（Profile Tab + StyleManager + StyleCard + 删除功能）
+- [ ] 09-02-PLAN.md — 风格创建/编辑弹窗（StyleCreateModal + StyleTagSelector + ReferenceImageUpload）
 
 ## Progress
 
@@ -164,5 +165,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | 5. 风格 CRUD API | 1/1 | Complete    | 2026-03-27 |
 | 6. 风格标签 API | 0/TBD | Complete    | 2026-03-27 |
 | 7. AI 参考图提取 | 1/1 | Complete    | 2026-03-27 |
-| 8. StyleSelector 扩展 | 0/1 | Planning | - |
-| 9. 风格管理 UI | 0/TBD | Not started | - |
+| 8. StyleSelector 扩展 | 1/1 | Complete | 2026-03-27 |
+| 9. 风格管理 UI | 1/2 | In Progress | - |

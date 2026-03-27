@@ -13,7 +13,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **STYLE-02**: 用户可以编辑已创建的自定义风格（名称、描述、标签）
 - [x] **STYLE-03**: 用户可以删除自定义风格
 - [x] **STYLE-04**: 系统限制每用户最多创建 N 个自定义风格，达到上限时给出明确提示
-- [ ] **STYLE-05**: 用户可以给风格打标签分类（如"写实"、"动漫"、"抽象"）
+- [x] **STYLE-05**: 用户可以给风格打标签分类（如"写实"、"动漫"、"抽象"）
 - [x] **STYLE-06**: 自定义风格保存在用户账号级别，所有项目可复用
 
 ### AI 风格提取 (EXTRACT)
@@ -72,7 +72,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | STYLE-02 | Phase 5 | Complete |
 | STYLE-03 | Phase 5 | Complete |
 | STYLE-04 | Phase 5 | Complete |
-| STYLE-05 | Phase 6 | Pending |
+| STYLE-05 | Phase 6 | Complete |
 | STYLE-06 | Phase 5 | Complete |
 | EXTRACT-01 | Phase 7 | Pending |
 | EXTRACT-02 | Phase 7 | Pending |
