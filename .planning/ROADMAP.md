@@ -48,7 +48,9 @@ Plans:
   3. 传入 `"user:uuid"` 格式标识符时查询数据库返回对应风格的提示词
   4. `artStylePrompt` 缓存字段已废弃，不再被任何代码路径写入或读取
   5. 风格创建操作使用 Prisma `$transaction` 包裹数量检查和插入，防止竞态条件
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 02-01-PLAN.md — TDD 创建异步 resolveStylePrompt() 解析器 + 移除 analyze-novel.ts 中 artStylePrompt 写入路径
 
 ### Phase 3: 向后兼容与系统预设保护
 **Goal**: 现有所有项目数据完全不受影响，系统预设在 API 层有服务端写保护
