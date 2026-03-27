@@ -199,10 +199,8 @@ describe('worker analyze-novel behavior', () => {
       ],
     })
 
-    expect(prismaMock.novelPromotionProject.update).toHaveBeenCalledWith({
-      where: { id: 'np-project-1' },
-      data: { artStylePrompt: 'cinematic style' },
-    })
+    // artStylePrompt 写入已移除（Phase 2），不再调用 novelPromotionProject.update
+    expect(prismaMock.novelPromotionProject.update).not.toHaveBeenCalled()
 
     expect(workerMock.reportTaskProgress).toHaveBeenCalledWith(
       expect.anything(),
