@@ -17,6 +17,8 @@ export interface UserStyle {
   promptEn: string
   tags: string | null
   referenceImageUrl: string | null
+  extractionStatus: string | null  // AI 提取状态：pending | completed | failed
+  extractionMessage: string | null  // 提取失败时的错误信息
   createdAt: Date
   updatedAt: Date
 }
@@ -66,8 +68,9 @@ export function useUserStyles(): UseUserStylesReturn {
         // 错误时静默处理
         setStyles([])
       }
-    } catch {
-      // 错误时静默处理
+    } catch (error) {
+      // 错误时记录日志并返回空数组
+      console.error('[useUserStyles] 获取用户风格失败:', error)
       setStyles([])
     } finally {
       setLoading(false)
@@ -85,9 +88,7 @@ export function useUserStyles(): UseUserStylesReturn {
   useEffect(() => {
     // 未登录时清空数据
     if (status !== 'authenticated') {
-      if (styles.length > 0) {
-        setStyles([])
-      }
+      setStyles([])
       return
     }
 

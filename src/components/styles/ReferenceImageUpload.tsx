@@ -4,10 +4,10 @@
  * 参考图上传组件
  * 支持图片文件选择、上传、预览和 AI 提取状态显示
  */
-import { useRef, useState, useCallback } from 'react'
+import { useRef, useState, useCallback, useEffect } from 'react'
 import { AppIcon } from '@/components/ui/icons'
 import { apiFetch } from '@/lib/api-fetch'
-import { toFetchableUrl } from '@/lib/storage'
+import { toFetchableUrl } from '@/lib/storage/client'
 
 export type ExtractionStatus = 'pending' | 'completed' | 'failed'
 
@@ -35,6 +35,15 @@ export function ReferenceImageUpload({
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isUploading, setIsUploading] = useState(false)
   const [localPreview, setLocalPreview] = useState<string | null>(null)
+
+  // 清理本地预览 URL（防止内存泄漏）
+  useEffect(() => {
+    return () => {
+      if (localPreview) {
+        URL.revokeObjectURL(localPreview)
+      }
+    }
+  }, [localPreview])
 
   // 获取显示的图片 URL
   const displayUrl = localPreview || (referenceImageUrl ? toFetchableUrl(referenceImageUrl) : null)
@@ -213,10 +222,17 @@ export function ReferenceImageUpload({
             <AppIcon name="upload" className="w-4 h-4" />
             更换图片
           </button>
-          {extractionStatus === 'failed' && styleId && selectedFile && (
+          {extractionStatus === 'failed' && styleId && (selectedFile || referenceImageUrl) && (
             <button
               type="button"
-              onClick={() => uploadFile(selectedFile, styleId)}
+              onClick={() => {
+                if (selectedFile) {
+                  uploadFile(selectedFile, styleId)
+                } else {
+                  // 编辑模式下没有本地文件，触发重新上传
+                  fileInputRef.current?.click()
+                }
+              }}
               disabled={isUploading}
               className="glass-btn-base glass-btn-secondary px-3 py-1.5 text-sm disabled:opacity-50 flex items-center gap-1.5"
             >

@@ -74,9 +74,10 @@ export const POST = apiHandler(async (request: NextRequest, ctx: RouteParams) =>
     })
   }
 
-  // 7. 上传到 S3
+  // 7. 上传到 S3（保留原始扩展名）
   const buffer = Buffer.from(await file.arrayBuffer())
-  const key = `user-styles/${session.user.id}/${id}/ref.jpg`
+  const ext = file.name.split('.').pop() || file.type.split('/')[1] || 'jpg'
+  const key = `user-styles/${session.user.id}/${id}/ref.${ext}`
   await uploadObject(buffer, key, 3, file.type)
 
   // 8. 更新风格记录，触发异步提取
@@ -116,5 +117,8 @@ export const POST = apiHandler(async (request: NextRequest, ctx: RouteParams) =>
     },
   })
 
-  return NextResponse.json({ style: updated })
+  return NextResponse.json({
+    referenceImageUrl: updated.referenceImageUrl,
+    extractionStatus: updated.extractionStatus,
+  })
 })

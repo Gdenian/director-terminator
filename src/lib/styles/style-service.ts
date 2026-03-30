@@ -9,22 +9,35 @@ import { prisma } from '@/lib/prisma'
 import { ApiError } from '@/lib/api-errors'
 import { resolveStylePrompt } from './style-resolver'
 import { toUserStyleIdentifier } from './style-namespace'
+import { MAX_STYLE_LIMIT } from './style-constants'
 
-/** 每用户最大自定义风格数量（per D-32） */
-export const MAX_STYLE_LIMIT = 20
+// Re-export for backward compatibility
+export { MAX_STYLE_LIMIT }
 
 interface CreateUserStyleInput {
   name: string
   promptZh: string
-  promptEn: string
+  promptEn?: string
   tags?: string[]
   referenceImageUrl?: string
+}
+
+/** 用户风格返回类型（与数据库字段对应） */
+export type UserStyleResult = {
+  id: string
+  name: string
+  promptZh: string
+  promptEn: string | null
+  tags: string | null
+  referenceImageUrl: string | null
+  createdAt: Date
+  updatedAt: Date
 }
 
 export async function createUserStyle(
   userId: string,
   data: CreateUserStyleInput,
-): Promise<{ id: string; name: string; promptZh: string; promptEn: string; tags: string | null; referenceImageUrl: string | null; createdAt: Date; updatedAt: Date }> {
+): Promise<UserStyleResult> {
   return await prisma.$transaction(async (tx) => {
     // 1. 计数检查（per D-32: $transaction 保护）
     const count = await tx.userStyle.count({ where: { userId } })
@@ -42,7 +55,7 @@ export async function createUserStyle(
         userId,
         name: data.name.trim(),
         promptZh: data.promptZh.trim(),
-        promptEn: data.promptEn.trim(),
+        promptEn: data.promptEn?.trim() ?? null,
         tags: data.tags?.join(',') ?? null,
         referenceImageUrl: data.referenceImageUrl ?? null,
       },
@@ -61,7 +74,7 @@ export async function createUserStyle(
 
 export async function getUserStyles(
   userId: string,
-): Promise<Array<{ id: string; name: string; promptZh: string; promptEn: string; tags: string | null; referenceImageUrl: string | null; createdAt: Date; updatedAt: Date }>> {
+): Promise<UserStyleResult[]> {
   return await prisma.userStyle.findMany({
     where: { userId },
     orderBy: { createdAt: 'desc' },
@@ -90,7 +103,7 @@ export async function updateUserStyle(
   id: string,
   userId: string,
   data: UpdateUserStyleInput,
-): Promise<{ id: string; name: string; promptZh: string; promptEn: string; tags: string | null; referenceImageUrl: string | null; createdAt: Date; updatedAt: Date }> {
+): Promise<UserStyleResult> {
   // 1. 保护系统预设（per D-33）
   await assertUserStyleNotSystem(id, userId)
 

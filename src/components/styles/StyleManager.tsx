@@ -14,7 +14,7 @@ import { apiFetch } from '@/lib/api-fetch'
 import { StyleCard } from './StyleCard'
 import { StyleCreateModal } from './StyleCreateModal'
 import { ConfigDeleteModal } from '@/components/ui/config-modals/ConfigDeleteModal'
-import { MAX_STYLE_LIMIT } from '@/lib/styles/style-service'
+import { MAX_STYLE_LIMIT } from '@/lib/styles/style-constants'
 
 /**
  * 登录提示组件
@@ -73,17 +73,7 @@ export function StyleManager() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [editTarget, setEditTarget] = useState<UserStyle | null>(null)
 
-  // 未登录提示
-  if (status !== 'authenticated') {
-    return <LoginPrompt />
-  }
-
-  // 加载状态
-  if (loading) {
-    return <LoadingState />
-  }
-
-  // 删除处理
+  // 删除处理 - 必须在所有条件返回之前定义
   const handleDelete = useCallback(async () => {
     if (!deleteTarget) return
 
@@ -109,6 +99,16 @@ export function StyleManager() {
       setDeleteTarget(null)
     }
   }, [deleteTarget, refresh, showError, showToast, t])
+
+  // 未登录提示
+  if (status !== 'authenticated') {
+    return <LoginPrompt />
+  }
+
+  // 加载状态
+  if (loading) {
+    return <LoadingState />
+  }
 
   // 计算是否达到上限
   const isLimitReached = styles.length >= MAX_STYLE_LIMIT

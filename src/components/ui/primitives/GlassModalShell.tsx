@@ -86,7 +86,7 @@ export default function GlassModalShell({
         )}
 
         <div className="glass-divider" />
-        <div className="px-5 py-4 sm:px-6 sm:py-5">{children}</div>
+        <div className="px-5 py-4 sm:px-6 sm:py-5 max-h-[60vh] overflow-y-auto">{children}</div>
 
         {footer ? (
           <>

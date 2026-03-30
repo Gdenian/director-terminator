@@ -9,7 +9,7 @@ import { z } from 'zod'
 export const createUserStyleSchema = z.object({
   name: z.string().min(1).max(50).trim(),
   promptZh: z.string().min(1).max(2000).trim(),
-  promptEn: z.string().min(1).max(2000).trim(),
+  promptEn: z.string().max(2000).trim().optional().or(z.literal('')), // 英文提示词可选
   tags: z.array(z.string()).optional(),
   referenceImageUrl: z.string().url().optional(),
 })

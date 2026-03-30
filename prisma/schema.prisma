@@ -1007,7 +1007,7 @@ model UserStyle {
   userId            String
   name              String
   promptZh          String   @db.Text
-  promptEn          String   @db.Text
+  promptEn          String?  @db.Text // 英文提示词可选
   tags              String?  @db.Text
   referenceImageUrl String?  @db.Text
   isSystem          Boolean  @default(false)

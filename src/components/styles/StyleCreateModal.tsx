@@ -54,6 +54,8 @@ export function StyleCreateModal({
 
   // 轮询相关
   const pollingRef = useRef<NodeJS.Timeout | null>(null)
+  const pollingCountRef = useRef(0)
+  const MAX_POLLING_COUNT = 60 // 最多轮询 60 次（3 分钟）
 
   // 是否为编辑模式
   const isEditMode = !!editStyle
@@ -97,8 +99,22 @@ export function StyleCreateModal({
     if (pollingRef.current) {
       clearInterval(pollingRef.current)
     }
+    pollingCountRef.current = 0
 
     pollingRef.current = setInterval(async () => {
+      pollingCountRef.current += 1
+
+      // 超过最大次数，停止轮询
+      if (pollingCountRef.current > MAX_POLLING_COUNT) {
+        if (pollingRef.current) {
+          clearInterval(pollingRef.current)
+          pollingRef.current = null
+        }
+        setExtractionStatus('failed')
+        setExtractionMessage('提取超时，请稍后重试')
+        return
+      }
+
       try {
         const res = await apiFetch(`/api/user-styles/${styleId}`)
         if (!res.ok) {
@@ -161,11 +177,8 @@ export function StyleCreateModal({
       showError('VALIDATION_ERROR', { message: '中文提示词不能超过 2000 个字符' })
       return false
     }
-    if (!formData.promptEn.trim()) {
-      showError('VALIDATION_ERROR', { message: '请输入英文提示词' })
-      return false
-    }
-    if (formData.promptEn.length > 2000) {
+    // 英文提示词为可选，但如果填写了需要检查长度
+    if (formData.promptEn && formData.promptEn.length > 2000) {
       showError('VALIDATION_ERROR', { message: '英文提示词不能超过 2000 个字符' })
       return false
     }
@@ -357,7 +370,7 @@ export function StyleCreateModal({
         {/* 英文提示词 */}
         <div className="space-y-2">
           <label className="block text-sm font-medium text-[var(--glass-text-primary)]">
-            {t('promptEn')} <span className="text-red-400">*</span>
+            {t('promptEn')}
           </label>
           <textarea
             value={formData.promptEn}

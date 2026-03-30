@@ -5,7 +5,7 @@
  * 展示单个自定义风格的信息和操作按钮
  */
 import { AppIcon } from '@/components/ui/icons'
-import { toFetchableUrl } from '@/lib/storage'
+import { toFetchableUrl } from '@/lib/storage/client'
 import type { UserStyle } from '@/hooks/useUserStyles'
 
 interface StyleCardProps {
@@ -42,7 +42,7 @@ export function StyleCard({ style, onEdit, onDelete }: StyleCardProps) {
       {/* 顶部：参考图 + 名称 */}
       <div className="flex items-start gap-3">
         {/* 参考图缩略图 */}
-        <div className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-[var(--glass-bg-muted)] flex items-center justify-center">
+        <div className="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-[var(--glass-bg-muted)] flex items-center justify-center relative">
           {style.referenceImageUrl ? (
             <img
               src={toFetchableUrl(style.referenceImageUrl)}
@@ -52,13 +52,32 @@ export function StyleCard({ style, onEdit, onDelete }: StyleCardProps) {
           ) : (
             <AppIcon name="image" className="w-6 h-6 text-[var(--glass-text-tertiary)]" />
           )}
+          {/* 提取状态角标 */}
+          {style.extractionStatus === 'pending' && (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+            </div>
+          )}
         </div>
 
         {/* 名称和创建时间 */}
         <div className="flex-1 min-w-0">
-          <h3 className="font-medium text-[var(--glass-text-primary)] truncate">
-            {style.name}
-          </h3>
+          <div className="flex items-center gap-2">
+            <h3 className="font-medium text-[var(--glass-text-primary)] truncate">
+              {style.name}
+            </h3>
+            {/* 提取状态标签 */}
+            {style.extractionStatus === 'pending' && (
+              <span className="px-1.5 py-0.5 text-xs rounded bg-blue-500/20 text-blue-400">
+                AI 提取中
+              </span>
+            )}
+            {style.extractionStatus === 'failed' && (
+              <span className="px-1.5 py-0.5 text-xs rounded bg-red-500/20 text-red-400" title={style.extractionMessage || ''}>
+                提取失败
+              </span>
+            )}
+          </div>
           <p className="text-xs text-[var(--glass-text-tertiary)] mt-1">
             {formatDate(style.createdAt)}
           </p>
