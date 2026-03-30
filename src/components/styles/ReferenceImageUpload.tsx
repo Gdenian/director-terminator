@@ -79,10 +79,10 @@ export function ReferenceImageUpload({
     if (styleId) {
       await uploadFile(file, styleId)
     }
-  }, [styleId, onFileSelect, onStatusChange])
+  }, [styleId, onFileSelect, onStatusChange, uploadFile])
 
   // 上传文件到服务器
-  const uploadFile = async (file: File, targetStyleId: string) => {
+  const uploadFile = useCallback(async (file: File, targetStyleId: string) => {
     setIsUploading(true)
     onStatusChange('pending')
 
@@ -112,7 +112,7 @@ export function ReferenceImageUpload({
     } finally {
       setIsUploading(false)
     }
-  }
+  }, [onStatusChange, onUploadSuccess])
 
   // 触发文件选择
   const handleUploadClick = () => {
