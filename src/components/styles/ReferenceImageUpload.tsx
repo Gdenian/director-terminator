@@ -48,39 +48,6 @@ export function ReferenceImageUpload({
   // 获取显示的图片 URL
   const displayUrl = localPreview || (referenceImageUrl ? toFetchableUrl(referenceImageUrl) : null)
 
-  // 处理文件选择
-  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    // 验证文件类型
-    if (!file.type.startsWith('image/')) {
-      onStatusChange('failed', '请选择图片文件')
-      return
-    }
-
-    // 验证文件大小（最大 10MB）
-    if (file.size > 10 * 1024 * 1024) {
-      onStatusChange('failed', '图片大小不能超过 10MB')
-      return
-    }
-
-    // 创建本地预览
-    const previewUrl = URL.createObjectURL(file)
-    setLocalPreview(previewUrl)
-
-    // 创建模式：只通知父组件有文件选择
-    if (!styleId && onFileSelect) {
-      onFileSelect(file)
-      return
-    }
-
-    // 编辑模式：直接上传
-    if (styleId) {
-      await uploadFile(file, styleId)
-    }
-  }, [styleId, onFileSelect, onStatusChange, uploadFile])
-
   // 上传文件到服务器
   const uploadFile = useCallback(async (file: File, targetStyleId: string) => {
     setIsUploading(true)
@@ -113,6 +80,39 @@ export function ReferenceImageUpload({
       setIsUploading(false)
     }
   }, [onStatusChange, onUploadSuccess])
+
+  // 处理文件选择
+  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // 验证文件类型
+    if (!file.type.startsWith('image/')) {
+      onStatusChange('failed', '请选择图片文件')
+      return
+    }
+
+    // 验证文件大小（最大 10MB）
+    if (file.size > 10 * 1024 * 1024) {
+      onStatusChange('failed', '图片大小不能超过 10MB')
+      return
+    }
+
+    // 创建本地预览
+    const previewUrl = URL.createObjectURL(file)
+    setLocalPreview(previewUrl)
+
+    // 创建模式：只通知父组件有文件选择
+    if (!styleId && onFileSelect) {
+      onFileSelect(file)
+      return
+    }
+
+    // 编辑模式：直接上传
+    if (styleId) {
+      await uploadFile(file, styleId)
+    }
+  }, [styleId, onFileSelect, onStatusChange, uploadFile])
 
   // 触发文件选择
   const handleUploadClick = () => {
